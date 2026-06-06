@@ -15,6 +15,33 @@ public:
 
     // 回傳一顆好晶片的索引；若無法找到則回傳 -1
     int findGoodChip(vector<int> chips) {
+    if (chips.size() == 0) {
+        return -1;
+    }
+
+    if (chips.size() == 1) {
+        return chips[0];
+    }
+
+    int A = chips[0];
+    int V = 0;
+    int n = chips.size();
+
+    for (int i = 1; i < n; i++) {
+        int B = chips[i];
+
+        if (report[A][B] == true && report[B][A] == true) {
+            V++;
+        }
+    }
+
+    if (V >= n / 2) {
+        return A;
+    } else {
+        chips.erase(chips.begin());
+        return findGoodChip(chips);
+    }
+}
         // TODO:
         // 反覆執行下列步驟：
         //
